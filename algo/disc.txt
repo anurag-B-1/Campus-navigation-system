@@ -1,0 +1,11 @@
+the     .h files are only for sharing the data to .c or .cpp files 
+while   .c and .cpp are only for execution 
+
+need for 
+#ifndef GRAPH_H   // 1. "If NOT Defined GRAPH_H"
+#define GRAPH_H   // 2. "Then DEFINE GRAPH_H"
+->
+main.cpp includes graph.h
+main.cpp also includes another file, which also secretly includes graph.h.
+so that if file is already readed then it does not read it again
+particually GRAPH_H is a flag you can write any thing there
