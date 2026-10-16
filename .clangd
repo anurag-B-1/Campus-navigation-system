@@ -1,0 +1,2 @@
+CompileFlags:
+  Add: [-xc++, -std=c++11, -Iinclude, --target=i686-pc-windows-gnu]
