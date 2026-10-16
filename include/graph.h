@@ -2,24 +2,28 @@
 #define GRAPH_H
 
 #include "structure.h"
-#include <vector>
-#include <map>
+
+#define MAX_GRAPH_NODES 100
 
 class Graph {
 private:
-    std::map<int, std::vector<Edge>> adjList;     // Adjacency list: nodeID -> outward Edges
+    AdjList adjList[MAX_GRAPH_NODES]; // Adjacency list: Array of Linked Lists (DSA in C)
 
 public:
-    void buildGraph(const std::vector<Edge>& rawEdges);
+    Graph();
+    ~Graph();
 
-    // Returns all direct paths leading out of a specific location
-    std::vector<Edge> getNeighbors(int nodeID) const;
+    // Builds the adjacency list from raw edges array
+    void buildGraph(const Edge* rawEdges, int edgeCount);
+
+    // Returns head of linked list of direct outgoing pathways
+    EdgeNode* getNeighbors(int nodeID) const;
 
     // Checks if a node has any registered outgoing connections
     bool hasNode(int nodeID) const;
 
-    // Returns read-only reference to adjacency list
-    const std::map<int, std::vector<Edge>>& getAdjList() const;
+    // Clears all linked lists and frees memory
+    void clear();
 };
 
 #endif // GRAPH_H

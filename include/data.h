@@ -2,12 +2,14 @@
 #define DATA_H
 
 #include "structure.h"
-#include <vector>
 
-// Loads all defined edges representing campus paths and walkways
-std::vector<Edge> CampusMap();
+// Returns dynamic array allocated with malloc/calloc
+Edge* CampusMap(int* edgeCount);
 
-// Loads all defined campus landmark nodes and IDs
-std::vector<Node> loadCampusNodes();
+// Returns dynamic array of campus nodes allocated with malloc/calloc
+Node* loadCampusNodes(int* nodeCount);
+
+// Frees the allocated arrays
+void freeCampusData(Edge* edges, Node* nodes);
 
 #endif // DATA_H

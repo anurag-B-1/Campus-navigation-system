@@ -1,37 +1,86 @@
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
-#include <string>
-#include <vector>
-using namespace std;
-struct Edge {
-  int edge_id;
-  int from_node;
-  int to_node;
-  int weight;
-  string description;
+#include <cstdlib>
+#include <cstring>
 
-  // Constructors: supports default init, emplace_back, and push_back
-  Edge() : edge_id(0), from_node(0), to_node(0), weight(0), description("") {}
-  Edge(int id, int from, int to, int w, const string &desc)
-      : edge_id(id), from_node(from), to_node(to), weight(w),
-        description(desc) {}
+// ============================================================================
+// CORE DATA STRUCTURES (C-STYLE WITHOUT STL VECTORS)
+// ============================================================================
+
+struct Edge {
+    int edge_id;
+    int from_node;
+    int to_node;
+    int weight;
+    char description[128];
+
+    Edge() : edge_id(0), from_node(0), to_node(0), weight(0) {
+        description[0] = '\0';
+    }
+
+    Edge(int id, int from, int to, int w, const char* desc = "")
+        : edge_id(id), from_node(from), to_node(to), weight(w) {
+        if (desc) {
+            std::strncpy(description, desc, sizeof(description) - 1);
+            description[sizeof(description) - 1] = '\0';
+        } else {
+            description[0] = '\0';
+        }
+    }
 };
 
 struct Node {
-  int node_id;
-  string name; // name like main bolic and cantten
-  Node() : node_id(0), name("") {}
-  Node(int id, const string &n) : node_id(id), name(n) {}
+    int node_id;
+    char name[64];
+
+    Node() : node_id(0) {
+        name[0] = '\0';
+    }
+
+    Node(int id, const char* n = "") : node_id(id) {
+        if (n) {
+            std::strncpy(name, n, sizeof(name) - 1);
+            name[sizeof(name) - 1] = '\0';
+        } else {
+            name[0] = '\0';
+        }
+    }
 };
 
 struct PathResult {
-  bool path_exists; // Set to false if start and destination are disconnected
-  int total_weight; // Total distance or time cost of the journey
-  vector<int> node_sequence; // Ordered list of node IDs (e.g., [5, 6, 8])
-  vector<string> path_descriptions; // Step-by-step text directions to display
+    bool path_exists;
+    int total_weight;
+    int* node_sequence;        // Dynamic array allocated via malloc/calloc
+    int sequence_count;
+    char** path_descriptions;  // Dynamic array of string pointers allocated via malloc/calloc
+    int description_count;
 
-  PathResult() : path_exists(false), total_weight(0) {}
+    PathResult()
+        : path_exists(false), total_weight(0),
+          node_sequence(nullptr), sequence_count(0),
+          path_descriptions(nullptr), description_count(0) {}
 };
+
+// Safe memory deallocation for PathResult dynamic arrays
+inline void freePathResult(PathResult& res) {
+    if (res.node_sequence) {
+        std::free(res.node_sequence);
+        res.node_sequence = nullptr;
+    }
+    if (res.path_descriptions) {
+        for (int i = 0; i < res.description_count; i++) {
+            if (res.path_descriptions[i]) {
+                std::free(res.path_descriptions[i]);
+            }
+        }
+        std::free(res.path_descriptions);
+        res.path_descriptions = nullptr;
+    }
+    res.sequence_count = 0;
+    res.description_count = 0;
+}
+
+#include "linked_list.h"
 
 #endif // STRUCTURES_H
