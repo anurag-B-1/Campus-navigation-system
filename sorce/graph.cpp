@@ -1,28 +1,47 @@
 #include "../include/graph.h"
 
-using namespace std;
-
-void Graph::buildGraph(const vector<Edge>& rawEdges) {
-    adjList.clear();
-    for (const auto& edge : rawEdges) {
-        // Organize edges by their starting point ('from_node')
-        adjList[edge.from_node].push_back(edge);
+Graph::Graph() {
+    for (int i = 0; i < MAX_GRAPH_NODES; i++) {
+        adjList[i].head = nullptr;
     }
 }
 
-std::vector<Edge> Graph::getNeighbors(int nodeID) const {
-    // If the node exists in our map, return its connections
-    auto it = adjList.find(nodeID);
-    if (it != adjList.end()) {
-        return it->second;
+Graph::~Graph() {
+    clear();
+}
+
+void Graph::clear() {
+    for (int i = 0; i < MAX_GRAPH_NODES; i++) {
+        if (adjList[i].head != nullptr) {
+            freeEdgeList(adjList[i].head);
+            adjList[i].head = nullptr;
+        }
     }
-    return vector<Edge>(); // Return empty list if no connections found
+}
+
+void Graph::buildGraph(const Edge* rawEdges, int edgeCount) {
+    clear();
+    if (!rawEdges || edgeCount <= 0) return;
+
+    for (int i = 0; i < edgeCount; i++) {
+        int u = rawEdges[i].from_node;
+        if (u >= 0 && u < MAX_GRAPH_NODES) {
+            addEdgeToAdjList(adjList[u], rawEdges[i].edge_id, rawEdges[i].from_node,
+                            rawEdges[i].to_node, rawEdges[i].weight, rawEdges[i].description);
+        }
+    }
+}
+
+EdgeNode* Graph::getNeighbors(int nodeID) const {
+    if (nodeID >= 0 && nodeID < MAX_GRAPH_NODES) {
+        return adjList[nodeID].head;
+    }
+    return nullptr;
 }
 
 bool Graph::hasNode(int nodeID) const {
-    return adjList.find(nodeID) != adjList.end();
-}
-
-const std::map<int, std::vector<Edge>>& Graph::getAdjList() const {
-    return adjList;
+    if (nodeID >= 0 && nodeID < MAX_GRAPH_NODES) {
+        return adjList[nodeID].head != nullptr;
+    }
+    return false;
 }
