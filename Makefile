@@ -5,7 +5,7 @@ SRCDIR = sorce
 INCDIR = include
 TARGET = campus_nav.exe
 
-SRCS = $(SRCDIR)/main.cpp $(SRCDIR)/data.cpp $(SRCDIR)/graph.cpp $(SRCDIR)/router.cpp
+SRCS = $(SRCDIR)/main.cpp $(SRCDIR)/data.cpp $(SRCDIR)/graph.cpp $(SRCDIR)/router.cpp $(SRCDIR)/search.cpp
 
 all: $(TARGET)
 

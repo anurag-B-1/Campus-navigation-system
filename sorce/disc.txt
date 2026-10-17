@@ -9,12 +9,14 @@ Campus navigation system/
 │   ├── structure.h         <-- Core data models: Edge, Node, PathResult
 │   ├── data.h              <-- Campus dataset function declarations (CampusMap, loadCampusNodes)
 │   ├── graph.h             <-- Graph class declaration: Adjacency list & getNeighbors
-│   └── router.h            <-- Dijkstra shortest-path router algorithm declarations
+│   ├── router.h            <-- Dijkstra shortest-path router algorithm declarations
+│   └── search.h            <-- Person 3: BFS, DFS, location search, intermediate stops
 │
 ├── sorce/                  <-- IMPLEMENTATION FILES (.cpp): Execution & business logic
 │   ├── data.cpp            <-- Concrete edge weights, walking directions, and campus nodes
 │   ├── graph.cpp           <-- Graph methods (buildGraph, getNeighbors, hasNode)
 │   ├── router.cpp          <-- Dijkstra shortest path implementation using Graph
+│   ├── search.cpp          <-- Person 3: BFS/DFS traversal, room search, intermediates
 │   ├── main.cpp            <-- Terminal UI menu, CLI argument parser, runner
 │   └── disc.txt            <-- Architecture & module connection guide
 │
@@ -70,10 +72,16 @@ Summary of connections:
    - `router.cpp` executes Dijkstra's algorithm by querying `graph.getNeighbors(u)`.
    - Connected to `main.cpp` to calculate optimal routes.
 
-5. `main.cpp`:
+5. `search.h` & `search.cpp` (Person 3 — Search & Traversal, DSA in C):
+   - Array queue for BFS, array stack for DFS.
+   - `searchLocations` linear-searches rooms by name.
+   - `findIntermediateDestinations` lists nodes between two locations on a BFS hop path.
+
+6. `main.cpp`:
    - The central entry point.
-   - Includes all 4 headers from `include/`.
-   - Loads data via `data.h`, builds graph via `graph.h`, routes via `router.h`.
+   - Includes headers from `include/`.
+   - Loads data via `data.h`, builds graph via `graph.h`, routes via `router.h`,
+     searches/traverses via `search.h`.
 
 ================================================================================
 3. WHY HEADER GUARDS (#ifndef / #define / #endif) ARE NEEDED:
@@ -91,10 +99,10 @@ twice in the same compilation unit and throw a "redefinition of struct" error.
 4. COMPILATION INSTRUCTIONS:
 ================================================================================
 From the project root:
-    g++ sorce/main.cpp sorce/data.cpp sorce/graph.cpp sorce/router.cpp -o campus_nav.exe
+    g++ sorce/main.cpp sorce/data.cpp sorce/graph.cpp sorce/router.cpp sorce/search.cpp -o campus_nav.exe
 
 From the sorce/ directory:
-    g++ main.cpp data.cpp graph.cpp router.cpp -o campus_nav.exe
+    g++ main.cpp data.cpp graph.cpp router.cpp search.cpp -o campus_nav.exe
 
 Run:
     ./campus_nav.exe

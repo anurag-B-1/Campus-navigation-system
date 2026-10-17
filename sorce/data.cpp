@@ -7,7 +7,7 @@ Edge *CampusMap(int *edgeCount) {
   if (edgeCount)
     *edgeCount = TOTAL_EDGES;
 
-  // Allocate dynamic array using calloc (DSA in C)
+  // Allocate dynamic array using calloc
   Edge *edges = (Edge *)std::calloc(TOTAL_EDGES, sizeof(Edge));
   if (!edges)
     return nullptr;
@@ -77,7 +77,7 @@ Edge *CampusMap(int *edgeCount) {
   setEdge(38, 39, 12, 17, 3, "Walk from Gate 2 to the Marina");
   setEdge(39, 40, 17, 12, 3, "Walk from the Marina to Gate 2");
 
-  // Edges for Central Library (Node 20)
+  // Edges for Central Library 
   setEdge(40, 41, 1, 20, 2,
           "Head East from Main Block towards the Central Library entrance "
           "walkway (approx. 70m)");
@@ -86,7 +86,7 @@ Edge *CampusMap(int *edgeCount) {
           "Block (approx. 70m)");
   setEdge(42, 43, 8, 20, 3,
           "From Ground, take the North-East paved pathway towards Central "
-          "Library (approx. 120m)");
+          "Library (approx. 120mm)");
   setEdge(43, 44, 20, 8, 3,
           "From Central Library, take the South-West pathway leading down to "
           "the Ground (approx. 120m)");
@@ -105,7 +105,7 @@ Node *loadCampusNodes(int *nodeCount) {
   if (nodeCount)
     *nodeCount = TOTAL_NODES;
 
-  // Allocate dynamic array using calloc (DSA in C)
+  // Allocate dynamic array using calloc 
   Node *nodes = (Node *)std::calloc(TOTAL_NODES, sizeof(Node));
   if (!nodes)
     return nullptr;
