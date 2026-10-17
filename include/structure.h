@@ -45,10 +45,9 @@ struct Node {
 struct PathResult {
   bool path_exists;
   int total_weight;
-  int *node_sequence; // Dynamic array allocated via malloc/calloc
+  int *node_sequence;
   int sequence_count;
-  char **path_descriptions; // Dynamic array of string pointers allocated via
-                            // malloc/calloc
+  char **path_descriptions; 
   int description_count;
 
   PathResult()

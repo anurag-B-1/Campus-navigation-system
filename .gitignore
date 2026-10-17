@@ -1,0 +1,6 @@
+# Ignore all executable binary files
+*.exe
+
+# Ignore temporary object files
+*.o
+*.obj

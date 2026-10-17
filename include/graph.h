@@ -13,16 +13,14 @@ public:
     Graph();
     ~Graph();
 
-    // Builds the adjacency list from raw edges array
+  
     void buildGraph(const Edge* rawEdges, int edgeCount);
 
-    // Returns head of linked list of direct outgoing pathways
+    
     EdgeNode* getNeighbors(int nodeID) const;
 
-    // Checks if a node has any registered outgoing connections
     bool hasNode(int nodeID) const;
 
-    // Clears all linked lists and frees memory
     void clear();
 };
 
