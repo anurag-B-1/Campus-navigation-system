@@ -1,6 +1,13 @@
 # Ignore all executable binary files
 *.exe
+*.out
 
 # Ignore temporary object files
 *.o
 *.obj
+
+#Ignore Excel sheets specifically
+*.xlsx
+
+#Ignore local editor configuration
+.vscode/

@@ -1,12 +1,4 @@
-/*
-Compilation Commands:
-    directory is ---      C:\Users\lenovo\programming\Campus navigation system>    
 
-    g++ sorce/main.cpp sorce/data.cpp sorce/graph.cpp sorce/router.cpp sorce/search.cpp -o campus_nav.exe
-
-
-    .\campus_nav.exe
-*/
 
 #include <algorithm>
 #include <cctype>
@@ -293,6 +285,5 @@ int main(int argc, char *argv[]) {
 
   // Clean up heap allocated dynamic arrays before exiting
   freeCampusData(rawEdges, campusNodes);
-
   return 0;
 }

@@ -1,6 +1,9 @@
 #include "../include/data.h"
 #include <cstdlib>
 #include <cstring>
+#include <iostream>
+
+using namespace std;
 
 Edge *CampusMap(int *edgeCount) {
   const int TOTAL_EDGES = 46;
@@ -8,20 +11,22 @@ Edge *CampusMap(int *edgeCount) {
     *edgeCount = TOTAL_EDGES;
 
   // Allocate dynamic array using calloc
-  Edge *edges = (Edge *)std::calloc(TOTAL_EDGES, sizeof(Edge));
+  Edge *edges = (Edge *)calloc(
+      TOTAL_EDGES, sizeof(Edge)); // calloc allocate all to 0 not a garbage
   if (!edges)
     return nullptr;
 
-  auto setEdge = [&](int idx, int id, int from, int to, int w,
-                     const char *desc) {
-    edges[idx].edge_id = id;
-    edges[idx].from_node = from;
-    edges[idx].to_node = to;
-    edges[idx].weight = w;
-    std::strncpy(edges[idx].description, desc,
-                 sizeof(edges[idx].description) - 1);
-    edges[idx].description[sizeof(edges[idx].description) - 1] = '\0';
-  };
+  auto setEdge =
+      [&](int idx, int id, int from, int to, int w,
+          const char *desc) { // Lambda Capture Clause (or Capture List)
+        edges[idx].edge_id = id;
+        edges[idx].from_node = from;
+        edges[idx].to_node = to;
+        edges[idx].weight = w;
+        strncpy(edges[idx].description, desc,
+                sizeof(edges[idx].description) - 1);
+        edges[idx].description[sizeof(edges[idx].description) - 1] = '\0';
+      };
 
   setEdge(0, 1, 1, 2, 3,
           "Head East from Main Block towards CSE Block (approx. 50m)");
@@ -77,7 +82,7 @@ Edge *CampusMap(int *edgeCount) {
   setEdge(38, 39, 12, 17, 3, "Walk from Gate 2 to the Marina");
   setEdge(39, 40, 17, 12, 3, "Walk from the Marina to Gate 2");
 
-  // Edges for Central Library 
+  // Edges for Central Library
   setEdge(40, 41, 1, 20, 2,
           "Head East from Main Block towards the Central Library entrance "
           "walkway (approx. 70m)");
@@ -105,14 +110,14 @@ Node *loadCampusNodes(int *nodeCount) {
   if (nodeCount)
     *nodeCount = TOTAL_NODES;
 
-  // Allocate dynamic array using calloc 
-  Node *nodes = (Node *)std::calloc(TOTAL_NODES, sizeof(Node));
+  // Allocate dynamic array using calloc
+  Node *nodes = (Node *)calloc(TOTAL_NODES, sizeof(Node));
   if (!nodes)
     return nullptr;
 
   auto setNode = [&](int idx, int id, const char *name) {
     nodes[idx].node_id = id;
-    std::strncpy(nodes[idx].name, name, sizeof(nodes[idx].name) - 1);
+    strncpy(nodes[idx].name, name, sizeof(nodes[idx].name) - 1);
     nodes[idx].name[sizeof(nodes[idx].name) - 1] = '\0';
   };
 
@@ -142,7 +147,7 @@ Node *loadCampusNodes(int *nodeCount) {
 
 void freeCampusData(Edge *edges, Node *nodes) {
   if (edges)
-    std::free(edges);
+    free(edges);
   if (nodes)
-    std::free(nodes);
+    free(nodes);
 }
