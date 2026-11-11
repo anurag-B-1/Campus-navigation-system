@@ -1,0 +1,107 @@
+node_id,location_id,type,name,floor,description
+1,MAC_LAB,room,mac_lab,0,Mac Lab (Ground floor)
+2,ADMISSION_CELL,room,admission_cell,0,Admission Cell (Ground floor)
+3,LIBRARY,room,library,0,"Library (Ground floor), next to Admission Cell"
+4,LT006,room,lt006,0,Lecture Theatre 006 (Ground floor)
+5,CR007,room,cr007,0,Classroom 007 (Ground floor)
+6,CR023,room,cr023,0,Classroom 023 (Ground floor)
+7,LT024,room,lt024,0,Lecture Theatre 024 (Ground floor)
+8,JN_0,junction,junction floor 0,0,"Ring junction (Ground floor), middle of Classroom 007 - Classroom 023 corridor; the path to the Central Stairs starts here"
+9,ST_0,stairs,stairs floor 0,0,"Central Stairs (Ground floor), middle of the rectangle's front side"
+10,LAB009,room,lab009,0,"Lab 009 (Ground floor), middle of the 25 m side"
+11,LAB017,room,lab017,0,"Lab 017 (Ground floor), middle of the 25 m side"
+12,CR014,room,cr014,0,"Classroom 014 (Ground floor) - top corner, Lab 009 side"
+13,CR016,room,cr016,0,"Classroom 016 (Ground floor) - top corner, Lab 017 side"
+14,RC1_0,junction,rect corner 1 floor 0,0,"Corridor corner (Ground floor), on the Lab 009 side near Central Stairs"
+15,RC2_0,junction,rect corner 2 floor 0,0,"Corridor corner (Ground floor), on the Lab 017 side near Central Stairs"
+16,CR013,room,cr013,0,Classroom 013 (Ground floor) - beside Boys Washroom
+17,CR017,room,cr017,0,Classroom 017 (Ground floor) - beside Girls Washroom
+18,BOYS_WC_0,room,boys washroom floor 0,0,"Boys Washroom (Ground floor), next to Boys Washroom Stairs"
+19,GIRLS_WC_0,room,girls washroom floor 0,0,"Girls Washroom (Ground floor), next to Girls Washroom Stairs"
+20,ST00_0,stairs,stair 00 floor 0,0,"Boys Washroom Stairs (Ground floor), at the end of the top corridor"
+21,ST000_0,stairs,stair 000 floor 0,0,"Girls Washroom Stairs (Ground floor), at the end of the top corridor"
+22,CR105,room,cr105,1,Classroom 105 (1st floor) - above Mac Lab
+23,CR125,room,cr125,1,Classroom 125 (1st floor) - above Admission Cell
+24,LT106,room,lt106,1,Lecture Theatre 106 (1st floor)
+25,CR107,room,cr107,1,Classroom 107 (1st floor)
+26,CR123,room,cr123,1,Classroom 123 (1st floor)
+27,LT124,room,lt124,1,Lecture Theatre 124 (1st floor)
+28,JN_1,junction,junction floor 1,1,"Ring junction (1st floor), middle of Classroom 107 - Classroom 123 corridor; the path to the Central Stairs starts here"
+29,ST_1,stairs,stairs floor 1,1,"Central Stairs (1st floor), middle of the rectangle's front side"
+30,LAB109,room,lab109,1,"Lab 109 (1st floor), middle of the 25 m side"
+31,LAB117,room,lab117,1,"Lab 117 (1st floor), middle of the 25 m side"
+32,CR114,room,cr114,1,"Classroom 114 (1st floor) - top corner, Lab 109 side"
+33,CR116,room,cr116,1,"Classroom 116 (1st floor) - top corner, Lab 117 side"
+34,RC1_1,junction,rect corner 1 floor 1,1,"Corridor corner (1st floor), on the Lab 109 side near Central Stairs"
+35,RC2_1,junction,rect corner 2 floor 1,1,"Corridor corner (1st floor), on the Lab 117 side near Central Stairs"
+36,CR113,room,cr113,1,Classroom 113 (1st floor) - beside Boys Washroom
+37,CR117,room,cr117,1,Classroom 117 (1st floor) - beside Girls Washroom
+38,BOYS_WC_1,room,boys washroom floor 1,1,"Boys Washroom (1st floor), next to Boys Washroom Stairs"
+39,GIRLS_WC_1,room,girls washroom floor 1,1,"Girls Washroom (1st floor), next to Girls Washroom Stairs"
+40,ST00_1,stairs,stair 00 floor 1,1,"Boys Washroom Stairs (1st floor), at the end of the top corridor"
+41,ST000_1,stairs,stair 000 floor 1,1,"Girls Washroom Stairs (1st floor), at the end of the top corridor"
+42,CR205,room,cr205,2,Classroom 205 (2nd floor) - above Mac Lab
+43,CR225,room,cr225,2,Classroom 225 (2nd floor) - above Admission Cell
+44,LT206,room,lt206,2,Lecture Theatre 206 (2nd floor)
+45,CR207,room,cr207,2,Classroom 207 (2nd floor)
+46,CR223,room,cr223,2,Classroom 223 (2nd floor)
+47,LT224,room,lt224,2,Lecture Theatre 224 (2nd floor)
+48,JN_2,junction,junction floor 2,2,"Ring junction (2nd floor), middle of Classroom 207 - Classroom 223 corridor; the path to the Central Stairs starts here"
+49,ST_2,stairs,stairs floor 2,2,"Central Stairs (2nd floor), middle of the rectangle's front side"
+50,LAB209,room,lab209,2,"Lab 209 (2nd floor), middle of the 25 m side"
+51,LAB217,room,lab217,2,"Lab 217 (2nd floor), middle of the 25 m side"
+52,CR214,room,cr214,2,"Classroom 214 (2nd floor) - top corner, Lab 209 side"
+53,CR216,room,cr216,2,"Classroom 216 (2nd floor) - top corner, Lab 217 side"
+54,RC1_2,junction,rect corner 1 floor 2,2,"Corridor corner (2nd floor), on the Lab 209 side near Central Stairs"
+55,RC2_2,junction,rect corner 2 floor 2,2,"Corridor corner (2nd floor), on the Lab 217 side near Central Stairs"
+56,CR213,room,cr213,2,Classroom 213 (2nd floor) - beside Boys Washroom
+57,CR217,room,cr217,2,Classroom 217 (2nd floor) - beside Girls Washroom
+58,BOYS_WC_2,room,boys washroom floor 2,2,"Boys Washroom (2nd floor), next to Boys Washroom Stairs"
+59,GIRLS_WC_2,room,girls washroom floor 2,2,"Girls Washroom (2nd floor), next to Girls Washroom Stairs"
+60,ST00_2,stairs,stair 00 floor 2,2,"Boys Washroom Stairs (2nd floor), at the end of the top corridor"
+61,ST000_2,stairs,stair 000 floor 2,2,"Girls Washroom Stairs (2nd floor), at the end of the top corridor"
+62,CR305,room,cr305,3,Classroom 305 (3rd floor) - above Mac Lab
+63,B_TECH_DEPT,room,b.tech_department,3,"B.Tech Department (3rd floor), above Admission Cell"
+64,LT306,room,lt306,3,Lecture Theatre 306 (3rd floor)
+65,CR307,room,cr307,3,Classroom 307 (3rd floor)
+66,CR323,room,cr323,3,Classroom 323 (3rd floor)
+67,LT324,room,lt324,3,Lecture Theatre 324 (3rd floor)
+68,JN_3,junction,junction floor 3,3,"Ring junction (3rd floor), middle of Classroom 307 - Classroom 323 corridor; the path to the Central Stairs starts here"
+69,ST_3,stairs,stairs floor 3,3,"Central Stairs (3rd floor), middle of the rectangle's front side"
+70,LAB309,room,lab309,3,"Lab 309 (3rd floor), middle of the 25 m side"
+71,LAB317,room,lab317,3,"Lab 317 (3rd floor), middle of the 25 m side"
+72,CR314,room,cr314,3,"Classroom 314 (3rd floor) - top corner, Lab 309 side"
+73,CR316,room,cr316,3,"Classroom 316 (3rd floor) - top corner, Lab 317 side"
+74,RC1_3,junction,rect corner 1 floor 3,3,"Corridor corner (3rd floor), on the Lab 309 side near Central Stairs"
+75,RC2_3,junction,rect corner 2 floor 3,3,"Corridor corner (3rd floor), on the Lab 317 side near Central Stairs"
+76,CR313,room,cr313,3,Classroom 313 (3rd floor) - beside Boys Washroom
+77,CR317,room,cr317,3,Classroom 317 (3rd floor) - beside Girls Washroom
+78,BOYS_WC_3,room,boys washroom floor 3,3,"Boys Washroom (3rd floor), next to Boys Washroom Stairs"
+79,GIRLS_WC_3,room,girls washroom floor 3,3,"Girls Washroom (3rd floor), next to Girls Washroom Stairs"
+80,ST00_3,stairs,stair 00 floor 3,3,"Boys Washroom Stairs (3rd floor), at the end of the top corridor"
+81,ST000_3,stairs,stair 000 floor 3,3,"Girls Washroom Stairs (3rd floor), at the end of the top corridor"
+82,CR405,room,cr405,4,Classroom 405 (4th floor) - above Mac Lab
+83,CR425,room,cr425,4,Classroom 425 (4th floor) - above Admission Cell
+84,LT406,room,lt406,4,Lecture Theatre 406 (4th floor)
+85,CR407,room,cr407,4,Classroom 407 (4th floor)
+86,CR423,room,cr423,4,Classroom 423 (4th floor)
+87,LT424,room,lt424,4,Lecture Theatre 424 (4th floor)
+88,JN_4,junction,junction floor 4,4,"Ring junction (4th floor), middle of Classroom 407 - Classroom 423 corridor; the path to the Central Stairs starts here"
+89,ST_4,stairs,stairs floor 4,4,"Central Stairs (4th floor), middle of the rectangle's front side"
+90,LAB409,room,lab409,4,"Lab 409 (4th floor), middle of the 25 m side"
+91,LAB417,room,lab417,4,"Lab 417 (4th floor), middle of the 25 m side"
+92,CR414,room,cr414,4,"Classroom 414 (4th floor) - top corner, Lab 409 side"
+93,CR416,room,cr416,4,"Classroom 416 (4th floor) - top corner, Lab 417 side"
+94,RC1_4,junction,rect corner 1 floor 4,4,"Corridor corner (4th floor), on the Lab 409 side near Central Stairs"
+95,RC2_4,junction,rect corner 2 floor 4,4,"Corridor corner (4th floor), on the Lab 417 side near Central Stairs"
+96,CR413,room,cr413,4,Classroom 413 (4th floor) - beside Boys Washroom
+97,CR417,room,cr417,4,Classroom 417 (4th floor) - beside Girls Washroom
+98,BOYS_WC_4,room,boys washroom floor 4,4,"Boys Washroom (4th floor), next to Boys Washroom Stairs"
+99,GIRLS_WC_4,room,girls washroom floor 4,4,"Girls Washroom (4th floor), next to Girls Washroom Stairs"
+100,ST00_4,stairs,stair 00 floor 4,4,"Boys Washroom Stairs (4th floor), at the end of the top corridor"
+101,ST000_4,stairs,stair 000 floor 4,4,"Girls Washroom Stairs (4th floor), at the end of the top corridor"
+102,UBUNTU_LAB,room,ubuntu_lab,0,"Ubuntu Lab (Ground floor), next to Mac Lab"
+103,UBUNTU_LAB_1,room,ubuntu_lab floor 1,1,"Ubuntu Lab (1st floor), next to Classroom 105"
+104,UBUNTU_LAB_2,room,ubuntu_lab floor 2,2,"Ubuntu Lab (2nd floor), next to Classroom 205"
+105,UBUNTU_LAB_3,room,ubuntu_lab floor 3,3,"Ubuntu Lab (3rd floor), next to Classroom 305"
+106,UBUNTU_LAB_4,room,ubuntu_lab floor 4,4,"Ubuntu Lab (4th floor), next to Classroom 405"
