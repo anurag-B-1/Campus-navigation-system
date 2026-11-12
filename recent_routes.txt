@@ -1,1 +1,2 @@
+106 3 BFS
 4 92 Dijkstra
