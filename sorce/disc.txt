@@ -1,3 +1,25 @@
+/*
+
+1Clean current branch----     	git reset --hard HEAD 	   Destroys all current messy changes immediately.
+2	Switch to safety------      	git checkout main       	 Moves your workspace back to the working code.
+3	Remove broken branch---      	git branch -D branch1   	 Completely deletes the messed-up branch.
+4	Start over cleanly-----      	git checkout -b branch1	   Spawns a brand new, perfect copy of branch1 from main.
+
+
+*/
+/*
+Compilation Commands:
+    directory is ---      C:\Users\lenovo\programming\c programing\Campus navigation system>   
+
+    g++ sorce/main.cpp sorce/data.cpp sorce/graph.cpp sorce/router.cpp sorce/search.cpp -o campus_nav.exe
+
+
+    .\campus_nav.exe
+*/
+
+
+
+
 ================================================================================
                     CAMPUS NAVIGATION SYSTEM - ARCHITECTURE & CONNECTIONS
 ================================================================================

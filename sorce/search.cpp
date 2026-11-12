@@ -39,7 +39,7 @@ static int dequeue(Queue *q) {
   return value;
 }
 
-/* ---------- C-style stack (array) for DFS ---------- */
+
 struct Stack {
   int data[SEARCH_MAX_NODES];
   int depth[SEARCH_MAX_NODES];

@@ -3,10 +3,11 @@
 
 #include "structure.h"
 
-// Returns dynamic array allocated with malloc/calloc
-Edge* CampusMap(int* edgeCount);
+// Loads the directed paths from data/connections.csv.
+// Returns a dynamically allocated array, or nullptr when loading fails.
+Edge* CampusMap(const Node* nodes, int nodeCount, int* edgeCount);
 
-// Returns dynamic array of campus nodes allocated with malloc/calloc
+// Loads campus locations from data/locations.csv.
 Node* loadCampusNodes(int* nodeCount);
 
 // Frees the allocated arrays

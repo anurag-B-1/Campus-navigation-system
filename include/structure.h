@@ -8,14 +8,14 @@ struct Edge {
   int edge_id;
   int from_node;
   int to_node;
-  int weight;
+  double weight;
   char description[128];
 
   Edge() : edge_id(0), from_node(0), to_node(0), weight(0) {
     description[0] = '\0';
   }
 
-  Edge(int id, int from, int to, int w, const char *desc = "")
+  Edge(int id, int from, int to, double w, const char *desc = "")
       : edge_id(id), from_node(from), to_node(to), weight(w) {
     if (desc) {
       std::strncpy(description, desc, sizeof(description) - 1);
@@ -28,11 +28,21 @@ struct Edge {
 
 struct Node {
   int node_id;
+  char location_id[64];
   char name[64];
 
-  Node() : node_id(0) { name[0] = '\0'; }
+  Node() : node_id(0) {
+    location_id[0] = '\0';
+    name[0] = '\0';
+  }
 
-  Node(int id, const char *n = "") : node_id(id) {
+  Node(int id, const char *locationId = "", const char *n = "") : node_id(id) {
+    if (locationId) {
+      std::strncpy(location_id, locationId, sizeof(location_id) - 1);
+      location_id[sizeof(location_id) - 1] = '\0';
+    } else {
+      location_id[0] = '\0';
+    }
     if (n) {
       std::strncpy(name, n, sizeof(name) - 1);
       name[sizeof(name) - 1] = '\0';
@@ -44,7 +54,7 @@ struct Node {
 
 struct PathResult {
   bool path_exists;
-  int total_weight;
+  double total_weight;
   int *node_sequence;
   int sequence_count;
   char **path_descriptions; 

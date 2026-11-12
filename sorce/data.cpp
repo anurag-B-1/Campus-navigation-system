@@ -1,148 +1,222 @@
 #include "../include/data.h"
-#include <cstdlib>
-#include <cstring>
+#include "../include/graph.h"
 
-Edge *CampusMap(int *edgeCount) {
-  const int TOTAL_EDGES = 46;
-  if (edgeCount)
-    *edgeCount = TOTAL_EDGES;
+#include <cmath>
+#include <cstdio>
+#include <fstream>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
-  // Allocate dynamic array using calloc
-  Edge *edges = (Edge *)std::calloc(TOTAL_EDGES, sizeof(Edge));
-  if (!edges)
-    return nullptr;
+namespace {
 
-  auto setEdge = [&](int idx, int id, int from, int to, int w,
-                     const char *desc) {
-    edges[idx].edge_id = id;
-    edges[idx].from_node = from;
-    edges[idx].to_node = to;
-    edges[idx].weight = w;
-    std::strncpy(edges[idx].description, desc,
-                 sizeof(edges[idx].description) - 1);
-    edges[idx].description[sizeof(edges[idx].description) - 1] = '\0';
-  };
+const char* LOCATIONS_FILE = "data/locations.csv";
+const char* CONNECTIONS_FILE = "data/connections.csv";
 
-  setEdge(0, 1, 1, 2, 3,
-          "Head East from Main Block towards CSE Block (approx. 50m)");
-  setEdge(1, 2, 2, 1, 3,
-          "Head West from CSE Block towards Main Block (approx. 50m)");
-  setEdge(2, 3, 1, 3, 3,
-          "Walk straight from Main Block to BTech 1 HOD / Cafeteria");
-  setEdge(3, 4, 3, 1, 3,
-          "Walk straight from BTech 1 HOD / Cafeteria to Main Block");
-  setEdge(4, 5, 1, 4, 3, "Take the path from Main Block to Mechanical Block");
-  setEdge(5, 6, 4, 1, 3, "Take the path from Mechanical Block to Main Block");
-  setEdge(6, 7, 5, 6, 3, "Walk from Gate 1 to the Canteen");
-  setEdge(7, 8, 6, 5, 3, "Walk from the Canteen to Gate 1");
-  setEdge(8, 9, 5, 18, 3, "Walk from Gate 1 to Back Wing Parking");
-  setEdge(9, 10, 18, 5, 3, "Walk from Back Wing Parking to Gate 1");
-  setEdge(10, 11, 18, 19, 3,
-          "Head towards the Civil Block from Back Wing Parking");
-  setEdge(11, 12, 19, 18, 3,
-          "Head towards Back Wing Parking from the Civil Block");
-  setEdge(12, 13, 6, 8, 3, "Walk down the path from the Canteen to the Ground");
-  setEdge(13, 14, 8, 6, 3, "Walk up the path from the Ground to the Canteen");
-  setEdge(14, 15, 6, 9, 3, "Walk from the Canteen to the Sports Arena");
-  setEdge(15, 16, 9, 6, 3, "Walk from the Sports Arena to the Canteen");
-  setEdge(16, 17, 8, 1, 3, "Walk straight from the Ground to the Main Block");
-  setEdge(17, 18, 1, 8, 3, "Walk straight from the Main Block to the Ground");
-  setEdge(18, 19, 8, 7, 3, "Take the path from the Ground to the Workshop");
-  setEdge(19, 20, 7, 8, 3, "Take the path from the Workshop to the Ground");
-  setEdge(20, 21, 9, 10, 3,
-          "Walk from the Sports Arena to the Basketball Court");
-  setEdge(21, 22, 10, 9, 3,
-          "Walk from the Basketball Court to the Sports Arena");
-  setEdge(22, 23, 8, 9, 3, "Walk across from the Ground to the Sports Arena");
-  setEdge(23, 24, 9, 8, 3, "Walk across from the Sports Arena to the Ground");
-  setEdge(24, 25, 10, 11, 3,
-          "Walk from the Basketball Court to the Volleyball Court");
-  setEdge(25, 26, 11, 10, 3,
-          "Walk from the Volleyball Court to the Basketball Court");
-  setEdge(26, 27, 9, 12, 3, "Walk from the Sports Arena to Gate 2");
-  setEdge(27, 28, 12, 9, 3, "Walk from Gate 2 to the Sports Arena");
-  setEdge(28, 29, 11, 13, 3, "Head up to Tiger Hill from the Volleyball Court");
-  setEdge(29, 30, 13, 11, 3,
-          "Head down from Tiger Hill to the Volleyball Court");
-  setEdge(30, 31, 10, 14, 3, "Walk from the Basketball Court to Gate 3");
-  setEdge(31, 32, 14, 10, 3, "Walk from Gate 3 to the Basketball Court");
-  setEdge(32, 33, 8, 14, 3, "Walk across from the Ground to Gate 3");
-  setEdge(33, 34, 14, 8, 3, "Walk across from Gate 3 to the Ground");
-  setEdge(34, 35, 14, 16, 3, "Walk from Gate 3 to the Agriculture Block");
-  setEdge(35, 36, 16, 14, 3, "Walk from the Agriculture Block to Gate 3");
-  setEdge(36, 37, 16, 15, 3,
-          "Walk from the Agriculture Block to the Agri Canteen");
-  setEdge(37, 38, 15, 16, 3,
-          "Walk from the Agri Canteen to the Agriculture Block");
-  setEdge(38, 39, 12, 17, 3, "Walk from Gate 2 to the Marina");
-  setEdge(39, 40, 17, 12, 3, "Walk from the Marina to Gate 2");
-
-  // Edges for Central Library 
-  setEdge(40, 41, 1, 20, 2,
-          "Head East from Main Block towards the Central Library entrance "
-          "walkway (approx. 70m)");
-  setEdge(41, 42, 20, 1, 2,
-          "Exit Central Library and head West along the corridor towards Main "
-          "Block (approx. 70m)");
-  setEdge(42, 43, 8, 20, 3,
-          "From Ground, take the North-East paved pathway towards Central "
-          "Library (approx. 120mm)");
-  setEdge(43, 44, 20, 8, 3,
-          "From Central Library, take the South-West pathway leading down to "
-          "the Ground (approx. 120m)");
-  setEdge(44, 45, 2, 20, 2,
-          "From CSE Block, cross the central courtyard towards Central Library "
-          "(approx. 80m)");
-  setEdge(45, 46, 20, 2, 2,
-          "Exit Central Library and walk across the central courtyard to CSE "
-          "Block (approx. 80m)");
-
-  return edges;
+std::string trim(const std::string& value) {
+  const std::string whitespace = " \t\r\n";
+  const std::size_t first = value.find_first_not_of(whitespace);
+  if (first == std::string::npos) return "";
+  return value.substr(first, value.find_last_not_of(whitespace) - first + 1);
 }
 
-Node *loadCampusNodes(int *nodeCount) {
-  const int TOTAL_NODES = 20;
-  if (nodeCount)
-    *nodeCount = TOTAL_NODES;
+// Handles ordinary CSV fields and quoted fields containing commas or quotes.
+std::vector<std::string> splitCsvLine(const std::string& line) {
+  std::vector<std::string> fields;
+  std::string field;
+  bool inQuotes = false;
 
-  // Allocate dynamic array using calloc 
-  Node *nodes = (Node *)std::calloc(TOTAL_NODES, sizeof(Node));
-  if (!nodes)
+  for (std::size_t i = 0; i < line.size(); ++i) {
+    const char current = line[i];
+    if (current == '"') {
+      if (inQuotes && i + 1 < line.size() && line[i + 1] == '"') {
+        field += '"';
+        ++i;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (current == ',' && !inQuotes) {
+      fields.push_back(trim(field));
+      field.clear();
+    } else {
+      field += current;
+    }
+  }
+
+  fields.push_back(trim(field));
+  return fields;
+}
+
+bool readHeader(std::ifstream& file, const std::vector<std::string>& expected,
+                const char* fileName) {
+  std::string line;
+  if (!std::getline(file, line)) {
+    std::fprintf(stderr, "Data file is empty: %s\n", fileName);
+    return false;
+  }
+
+  // Remove a UTF-8 BOM if a spreadsheet editor wrote one.
+  if (line.size() >= 3 && static_cast<unsigned char>(line[0]) == 0xEF &&
+      static_cast<unsigned char>(line[1]) == 0xBB &&
+      static_cast<unsigned char>(line[2]) == 0xBF) {
+    line.erase(0, 3);
+  }
+
+  if (splitCsvLine(line) != expected) {
+    std::fprintf(stderr, "Unexpected header in %s\n", fileName);
+    return false;
+  }
+  return true;
+}
+
+bool parsePositiveInt(const std::string& text, int& value) {
+  try {
+    std::size_t parsed = 0;
+    const long long number = std::stoll(text, &parsed);
+    if (parsed != text.size() || number <= 0 || number >= MAX_GRAPH_NODES) {
+      return false;
+    }
+    value = static_cast<int>(number);
+    return true;
+  } catch (...) {
+    return false;
+  }
+}
+
+bool parsePositiveDistance(const std::string& text, double& value) {
+  try {
+    std::size_t parsed = 0;
+    const double distance = std::stod(text, &parsed);
+    if (parsed != text.size() || !std::isfinite(distance) || distance <= 0) {
+      return false;
+    }
+    value = distance;
+    return true;
+  } catch (...) {
+    return false;
+  }
+}
+
+}  // namespace
+
+Node* loadCampusNodes(int* nodeCount) {
+  if (nodeCount) *nodeCount = 0;
+
+  std::ifstream file(LOCATIONS_FILE);
+  if (!file) {
+    std::fprintf(stderr, "Could not open %s\n", LOCATIONS_FILE);
     return nullptr;
+  }
+  if (!readHeader(file, {"node_id", "location_id", "type", "name", "floor",
+                         "description"}, LOCATIONS_FILE)) {
+    return nullptr;
+  }
 
-  auto setNode = [&](int idx, int id, const char *name) {
-    nodes[idx].node_id = id;
-    std::strncpy(nodes[idx].name, name, sizeof(nodes[idx].name) - 1);
-    nodes[idx].name[sizeof(nodes[idx].name) - 1] = '\0';
-  };
+  std::vector<Node> loadedNodes;
+  std::unordered_map<int, bool> usedNodeIds;
+  std::unordered_map<std::string, bool> usedLocationIds;
+  std::string line;
+  int lineNumber = 1;
 
-  setNode(0, 1, "Main Block");
-  setNode(1, 2, "CSE Block");
-  setNode(2, 3, "BTech 1 HOD / Cafeteria");
-  setNode(3, 4, "Mechanical Block");
-  setNode(4, 5, "Gate 1");
-  setNode(5, 6, "Canteen");
-  setNode(6, 7, "Workshop");
-  setNode(7, 8, "Ground");
-  setNode(8, 9, "Sports Arena");
-  setNode(9, 10, "Basketball Court");
-  setNode(10, 11, "Volleyball Court");
-  setNode(11, 12, "Gate 2");
-  setNode(12, 13, "Tiger Hill");
-  setNode(13, 14, "Gate 3");
-  setNode(14, 15, "Agri Canteen");
-  setNode(15, 16, "Agriculture Block");
-  setNode(16, 17, "Marina");
-  setNode(17, 18, "Back Wing Parking");
-  setNode(18, 19, "Civil Block");
-  setNode(19, 20, "Central Library");
+  while (std::getline(file, line)) {
+    ++lineNumber;
+    if (trim(line).empty()) continue;
+    const std::vector<std::string> fields = splitCsvLine(line);
+    if (fields.size() != 6) {
+      std::fprintf(stderr, "Invalid location row %d in %s\n", lineNumber,
+                   LOCATIONS_FILE);
+      return nullptr;
+    }
 
+    int nodeId = 0;
+    if (!parsePositiveInt(fields[0], nodeId) || fields[1].empty() ||
+        fields[3].empty() || usedNodeIds[nodeId] || usedLocationIds[fields[1]]) {
+      std::fprintf(stderr, "Invalid or duplicate location row %d in %s\n",
+                   lineNumber, LOCATIONS_FILE);
+      return nullptr;
+    }
+
+    std::string displayName = fields[3];
+    for (char& character : displayName) {
+      if (character == '_') character = ' ';
+    }
+
+    usedNodeIds[nodeId] = true;
+    usedLocationIds[fields[1]] = true;
+    loadedNodes.push_back(Node(nodeId, fields[1].c_str(), displayName.c_str()));
+  }
+
+  if (loadedNodes.empty()) {
+    std::fprintf(stderr, "No locations were found in %s\n", LOCATIONS_FILE);
+    return nullptr;
+  }
+
+  Node* nodes = new Node[loadedNodes.size()];
+  for (std::size_t i = 0; i < loadedNodes.size(); ++i) nodes[i] = loadedNodes[i];
+  if (nodeCount) *nodeCount = static_cast<int>(loadedNodes.size());
   return nodes;
 }
 
-void freeCampusData(Edge *edges, Node *nodes) {
-  if (edges)
-    std::free(edges);
-  if (nodes)
-    std::free(nodes);
+Edge* CampusMap(const Node* nodes, int nodeCount, int* edgeCount) {
+  if (edgeCount) *edgeCount = 0;
+  if (!nodes || nodeCount <= 0) return nullptr;
+
+  std::unordered_map<std::string, int> locationToNode;
+  for (int i = 0; i < nodeCount; ++i) {
+    locationToNode[nodes[i].location_id] = nodes[i].node_id;
+  }
+
+  std::ifstream file(CONNECTIONS_FILE);
+  if (!file) {
+    std::fprintf(stderr, "Could not open %s\n", CONNECTIONS_FILE);
+    return nullptr;
+  }
+  if (!readHeader(file, {"from", "to", "distance"}, CONNECTIONS_FILE)) {
+    return nullptr;
+  }
+
+  std::vector<Edge> loadedEdges;
+  std::string line;
+  int lineNumber = 1;
+  while (std::getline(file, line)) {
+    ++lineNumber;
+    if (trim(line).empty()) continue;
+    const std::vector<std::string> fields = splitCsvLine(line);
+    if (fields.size() != 3) {
+      std::fprintf(stderr, "Invalid connection row %d in %s\n", lineNumber,
+                   CONNECTIONS_FILE);
+      return nullptr;
+    }
+
+    const auto from = locationToNode.find(fields[0]);
+    const auto to = locationToNode.find(fields[1]);
+    double distance = 0;
+    if (from == locationToNode.end() || to == locationToNode.end() ||
+        !parsePositiveDistance(fields[2], distance)) {
+      std::fprintf(stderr, "Invalid connection row %d in %s\n", lineNumber,
+                   CONNECTIONS_FILE);
+      return nullptr;
+    }
+
+    char description[128];
+    std::snprintf(description, sizeof(description), "Walk from %s to %s (%.1f m)",
+                  fields[0].c_str(), fields[1].c_str(), distance);
+    loadedEdges.push_back(Edge(static_cast<int>(loadedEdges.size() + 1),
+                               from->second, to->second, distance, description));
+  }
+
+  if (loadedEdges.empty()) {
+    std::fprintf(stderr, "No connections were found in %s\n", CONNECTIONS_FILE);
+    return nullptr;
+  }
+
+  Edge* edges = new Edge[loadedEdges.size()];
+  for (std::size_t i = 0; i < loadedEdges.size(); ++i) edges[i] = loadedEdges[i];
+  if (edgeCount) *edgeCount = static_cast<int>(loadedEdges.size());
+  return edges;
+}
+
+void freeCampusData(Edge* edges, Node* nodes) {
+  delete[] edges;
+  delete[] nodes;
 }

@@ -7,7 +7,7 @@ struct EdgeNode {
   int edge_id;
   int from_node;
   int to_node;
-  int weight;
+  double weight;
   char description[128];
   EdgeNode *next; // Pointer to next edge
 
@@ -15,7 +15,7 @@ struct EdgeNode {
     description[0] = '\0';
   }
 
-  EdgeNode(int id, int from, int to, int w, const char *desc = "")
+  EdgeNode(int id, int from, int to, double w, const char *desc = "")
       : edge_id(id), from_node(from), to_node(to), weight(w), next(nullptr) {
     if (desc) {
       int i = 0;
@@ -91,7 +91,7 @@ struct PathResultLL {
 
 // Inserts an edge at the front of an adjacency list (O(1))
 inline void addEdgeToAdjList(AdjList &list, int id, int from, int to,
-                             int weight, const char *desc) {
+                             double weight, const char *desc) {
   EdgeNode *newNode = new EdgeNode(id, from, to, weight, desc);
   newNode->next = list.head;
   list.head = newNode;

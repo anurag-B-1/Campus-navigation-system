@@ -4,8 +4,7 @@
 #include "graph.h"
 #include "structure.h"
 
-#define MAX_NODES 50
-#define INF 999999 // Represents an unreachable distance initially
+#define MAX_NODES MAX_GRAPH_NODES
 
 /**
  * Calculates the shortest path between startNode and endNode using Dijkstra's

@@ -3,7 +3,7 @@
 
 #include "structure.h"
 
-#define MAX_GRAPH_NODES 100
+#define MAX_GRAPH_NODES 128
 
 class Graph {
 private:

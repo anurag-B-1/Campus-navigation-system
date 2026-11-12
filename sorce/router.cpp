@@ -1,6 +1,7 @@
 #include "../include/router.h"
 #include <cstdlib>
 #include <cstring>
+#include <limits>
 
 // Primary Dijkstra implementation using Graph's linked list adjacency list and dynamic arrays
 PathResult findShortestPath(int startNode, int endNode, const Graph& graph,
@@ -28,13 +29,13 @@ PathResult findShortestPath(int startNode, int endNode, const Graph& graph,
         return result;
     }
 
-    int dist[MAX_NODES];       // Shortest known distance to each node
+    double dist[MAX_NODES];    // Shortest known distance to each node
     int parent[MAX_NODES];     // Previous node to trace back the path
     bool visited[MAX_NODES];   // True if shortest distance is finalized
 
     // 1. Initialization
     for (int i = 0; i < MAX_NODES; i++) {
-        dist[i] = INF;
+        dist[i] = std::numeric_limits<double>::infinity();
         parent[i] = -1;
         visited[i] = false;
     }
@@ -42,7 +43,7 @@ PathResult findShortestPath(int startNode, int endNode, const Graph& graph,
 
     // 2. Core Dijkstra Loop
     for (int count = 0; count < MAX_NODES - 1; count++) {
-        int minDist = INF;
+        double minDist = std::numeric_limits<double>::infinity();
         int u = -1;
 
         for (int v = 0; v < MAX_NODES; v++) {
@@ -52,7 +53,7 @@ PathResult findShortestPath(int startNode, int endNode, const Graph& graph,
             }
         }
 
-        if (u == -1 || dist[u] == INF) break;
+        if (u == -1 || dist[u] == std::numeric_limits<double>::infinity()) break;
 
         visited[u] = true;
         if (u == endNode) break; // Reached destination
@@ -61,7 +62,7 @@ PathResult findShortestPath(int startNode, int endNode, const Graph& graph,
         EdgeNode* edge = graph.getNeighbors(u);
         while (edge != nullptr) {
             int v = edge->to_node;
-            int weight = edge->weight;
+            double weight = edge->weight;
 
             if (v >= 0 && v < MAX_NODES && !visited[v] && dist[u] + weight < dist[v]) {
                 dist[v] = dist[u] + weight;
@@ -72,7 +73,7 @@ PathResult findShortestPath(int startNode, int endNode, const Graph& graph,
     }
 
     // 3. Reconstruct the final path if a route was found
-    if (dist[endNode] != INF) {
+    if (dist[endNode] != std::numeric_limits<double>::infinity()) {
         result.path_exists = true;
         result.total_weight = dist[endNode];
 
