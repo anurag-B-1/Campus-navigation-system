@@ -4,7 +4,7 @@
 #include "graph.h"
 #include "structure.h"
 
-#define SEARCH_MAX_NODES 100
+#define SEARCH_MAX_NODES MAX_GRAPH_NODES
 
 struct IntList {
   int *items;

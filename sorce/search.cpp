@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <cstring>
 
-/* ---------- C-style queue (circular array) for BFS ---------- */
+// BFS
 struct Queue {
   int data[SEARCH_MAX_NODES];
   int front;

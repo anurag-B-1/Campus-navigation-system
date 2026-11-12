@@ -11,3 +11,6 @@
 
 #Ignore local editor configuration
 .vscode/
+
+# Ignore all text files
+*.txt
