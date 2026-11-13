@@ -14,3 +14,6 @@
 
 # Ignore all text files
 *.txt
+# Ignore all Markdown files except README
+*.md
+!README.md
